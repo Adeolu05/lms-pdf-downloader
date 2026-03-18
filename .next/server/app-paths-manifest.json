@@ -1,9 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/api/download/start/route": "app/api/download/start/route.js",
-  "/courses/page": "app/courses/page.js",
-  "/progress/page": "app/progress/page.js",
-  "/privacy/page": "app/privacy/page.js",
-  "/api/download/stream/route": "app/api/download/stream/route.js",
-  "/api/auth/check/route": "app/api/auth/check/route.js"
-}

@@ -1,4 +1,19 @@
+# Dependencies
 node_modules/
+
+# Local data
 downloads/
 sessions/
-.env
+.env*
+*.local
+
+# Next.js build output
+.next/
+out/
+build/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
