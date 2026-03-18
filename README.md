@@ -90,11 +90,11 @@ If you prefer operating strictly from the terminal or want to set up CRON jobs, 
 
 **Step 1:** Establish a local session (opens browser for manual login):
 ```bash
-node core/session-manager.js "https://lms.university.edu/course/123"
+npm run core:login -- "https://lms.university.edu/course/123"
 ```
 **Step 2:** Trigger the headless downloader:
 ```bash
-node core/downloader.js "https://lms.university.edu/course/123"
+npm run core:start -- "https://lms.university.edu/course/123"
 ```
 
 ---
