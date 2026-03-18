@@ -1,233 +1,151 @@
-# LMS PDF Downloader
+<div align="center">
+  <img src="./assets/banner.jpg" alt="LMS PDF Downloader Banner" width="100%" max-width="800px"/>
 
-<p align="center">
-  <img src="./assets/banner.jpg" alt="LMS PDF Downloader Banner"/>
-</p>
+  <h1>LMS PDF Downloader</h1>
+  
+  <p><strong>A beautifully automated, privacy-first tool to extract and organise course PDFs from your LMS.</strong></p>
 
-<h1 align="center">LMS PDF Downloader</h1>
-
-<p align="center">
-Automate downloading and organising course PDFs from LMS platforms
-</p>
-
-![Node.js](https://img.shields.io/badge/Node.js-20%2B-green)
-![Playwright](https://img.shields.io/badge/Playwright-Automation-blue)
-![Status](https://img.shields.io/badge/status-working-success)
-![License](https://img.shields.io/badge/license-MIT-black)
-
-Automates downloading PDF course materials from Learning Management Systems (LMS) by scanning course pages and organizing files by week.
-
-This tool now features a **premium, interactive web interface** built with Next.js and Tailwind CSS, providing a delightful and secure experience for students to extract course materials. It uses Playwright automation under the hood to log into an LMS session, detect course materials labelled **(PDF)**, and download them automatically into structured folders.
-
-Perfect for students who want to quickly collect and organise all lecture materials from their LMS without downloading files one by one.
+  <p>
+    <a href="https://github.com/Adeolu05/lms-pdf-downloader"><img src="https://img.shields.io/badge/Status-Active-success.svg?style=flat-square" alt="Status" /></a>
+    <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-18%2B-green.svg?style=flat-square" alt="Node Version" /></a>
+    <a href="https://playwright.dev/"><img src="https://img.shields.io/badge/Powered%20By-Playwright-2EAD33.svg?style=flat-square" alt="Playwright" /></a>
+    <a href="/docs/design-system.md"><img src="https://img.shields.io/badge/UI-Next.js%20%7C%20Tailwind-black.svg?style=flat-square" alt="Modern Stack" /></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License" /></a>
+  </p>
+</div>
 
 ---
 
-## Demo
+## 🎯 The Problem
+As a student, you log into your Learning Management System (Canvas, Blackboard, Moodle), click into a course, navigate to a module, open a resource page, view the embedded PDF, and finally click "Download". Repeat this 40 times for all your lectures.
+
+**LMS PDF Downloader automates the entire process.** Connect your session, paste a link, and watch as it recursively scans your courses, extracts the literal PDF files (bypassing the LMS wrappers), and downloads everything into perfectly structured folders local to your machine. 
+
+## 🎬 See it in Action
 
 ![Demo GIF](./assets/demo.gif)
 
----
+### ✨ Stunning Web Interface
 
-## Features
+<p align="center">
+  <img src="./assets/screenshots/home-page.png" alt="Home Page" width="80%"/>
+</p>
+<p align="center">
+  <img src="./assets/screenshots/course-page.png" alt="Courses Page" width="80%"/>
+</p>
+<p align="center">
+  <img src="./assets/screenshots/progress-page.png" alt="Progress Page" width="80%"/>
+</p>
 
-- **Modern Premium Web UI ✨ (New!)**  
-  A stunning, responsive dashboard with micro-interactions, dark-themed live terminal logs, auto-generated avatars, and an interactive download progress tracker.
+## ✨ Signature Feature: Smart Organisation Preview
 
-- **Privacy First 🛡️**  
-  Your credentials are never stored. The app relies strictly on your local browser session and cookies to securely access authorized files on your behalf. Read more on our dedicated `Privacy Policy` page.
+Before a single file is pulled, you get a clean, visual representation of what your hard drive is going to look like. No more dumping 50 loosely-named files like `lec_1_final_v2(1).pdf` into your Downloads folder.
 
-- **Resumable & Batch downloads**  
-  Queue multiple courses at once. Automatically skips files that already exist, so you can safely rerun the downloader anytime.
+<p align="center">
+  <img src="./assets/smart-organisation.png" alt="Smart Organisation Preview" width="90%"/>
+</p>
 
-- **Direct PDF extraction**  
-  Bypasses LMS PDF viewers by extracting the real PDF source from iframes or resource links.
+Everything is cleaned, sanitised, and sorted the exact moment it touches your disk.
 
-- **Handles multiple resource types**  
-  Supports:
-  - direct PDF pages
-  - embedded PDF viewers
-  - intermediate “click to open resource” pages
+## 🚀 Key Features
 
-- **Week-based organisation**  
-  Downloaded files are sorted into folders like `Week 1`, `Week 2`, and so on.
-
-- **Filename sanitisation**  
-  Cleans illegal Windows filename characters and removes hidden LMS accessibility text.
-
-- **Persistent login session**  
-  Uses a saved local browser session so you only need to log in once.
-
----
-
-## Example Output
-
-```text
-downloads/
-└── IFT_211_Digital_Logic_Design
-    ├── Week 1
-    │   └── Week 1 - Information Representation And Number Base Systems.pdf
-    ├── Week 2
-    │   └── Week 2 - Boolean Algebra And Logic Gates.pdf
-    ├── Week 3
-    │   └── Week 3 - Minimisation Techniques.pdf
-```
+* **Premium Next.js Web Dashboard:** A delightful, interactive, dark-terminal-themed UI built with strict design principles. 
+* **Privacy-First Operations:** Zero-knowledge architecture. You login on your own machine. We do not store your passwords. Your cookies stay local.
+* **Direct PDF Extraction:** Intelligently bypasses embedded PDF iframes and middleman "click here to open" resource pages.
+* **Resumable Batch Downloads:** Queue up 5 courses at once. If it crashes or you stop it, it perfectly resumes where it left off by skipping existing files.
+* **Stringent Filename Sanitisation:** Prevents OS path length errors and removes hidden LMS accessibility garbage tags automatically.
 
 ---
 
-## Prerequisites
+## 🏃 Quick Start (Web Interface)
 
-Make sure the following are installed:
+> **Note:** The recommended way to run this tool is via the built-in Next.js web application.
 
-* [Node.js](https://nodejs.org)
-* Playwright Chromium browser
+### 1. Prerequisites
+Ensure you have [Node.js 18+](https://nodejs.org/) installed.
 
-Install dependencies:
+### 2. Install & Run
+Clone the repository and install dependencies, including the Playwright browser engine:
 
 ```bash
+git clone https://github.com/Adeolu05/lms-pdf-downloader.git
+cd lms-pdf-downloader
 npm install
 npx playwright install chromium
+npm run dev
+```
+
+### 3. Usage
+- Open **http://localhost:3000** in your browser.
+- Click **"Login to LMS"**. A Chromium window will appear. Log in to your university portal normally. 
+- Return to the terminal and press `ENTER` to snapshot your secure, local session.
+- Paste your course URLs into the dashboard and hit **Download Materials**.
+- Watch the live terminal logs stream as your folders populate!
+
+---
+
+## 💻 CLI Usage (Headless Mode)
+
+If you prefer operating strictly from the terminal or want to set up CRON jobs, the core engine supports direct headless execution.
+
+**Step 1:** Establish a local session (opens browser for manual login):
+```bash
+node core/session-manager.js "https://lms.university.edu/course/123"
+```
+**Step 2:** Trigger the headless downloader:
+```bash
+node core/downloader.js "https://lms.university.edu/course/123"
 ```
 
 ---
 
-## How It Works
+## 🛠 Tech Stack
 
-The downloader can now be used via the **Web Interface** or the **CLI**.
+* **Frontend:** Next.js 14 (App Router), React, Tailwind CSS, Lucide Icons.
+* **Automation Automation:** Node.js, Playwright.
+* **Architecture:** Tightly decoupled `/core` (Node) and `/app` (React) allowing the UI to interact purely through Next.js API routes.
 
-### Web Interface (Recommended)
-
-1. **Start the App:**
-   ```bash
-   npm run dev
-   ```
-2. **Open your browser:** Navigate to `http://localhost:3000`
-3. **Connect Session:** Click "Login to LMS" to securely authenticate and save your session.
-4. **Queue Courses:** Paste your LMS course links into the dashboard.
-5. **Download:** Watch the terminal logs and striped progress bars as your files are downloaded and organised.
-
----
-
-### CLI Version (Legacy)
-
-The downloader works in **two simple steps**.
-
-### Step 1 — Login and Save Session
-
-This captures your authenticated browser session so you do not need to log in every time.
-
-Run:
-
-```bash
-npm run login
-```
-
-Or target a specific course page directly:
-
-```bash
-node src/session-manager.js "https://lms.miva.university/course/view.php?id=336"
-```
-
-### What happens
-
-1. A browser window opens
-2. Log into your LMS manually
-3. Return to the terminal
-4. Press **ENTER** to save the session
-
-If successful, your session will be saved locally in:
+## 📁 Repository Structure
 
 ```text
-sessions/storageState.json
+lms-pdf-downloader/
+├── app/                # Next.js App Router (Frontend Pages & API)
+├── components/         # Reusable React UI (features/, layout/, ui/)
+├── core/               # Automation Engine (Playwright scripts)
+├── lib/                # Shared utilities, React Context, Design Tokens
+├── docs/               # Project documentation & Architecture
+├── assets/             # Media assets for marketing/README
+├── downloads/          # Local output directory for PDFs (gitignored)
+└── sessions/           # Local Auth State storage (gitignored)
 ```
 
----
+## 🎨 Design System
 
-### Step 2 — Download Course Materials
+We take our aesthetics seriously. This project implements a formal `docs/design-system.md` adhering to a strict 2px-border, hard-shadow Neo-brutalist (yet warm) interaction language. See `lib/design-tokens.ts` for the exact metrics.
 
-Run the downloader with the course URL:
+## 🛣 Roadmap
 
-```bash
-node src/downloader.js "https://lms.miva.university/course/view.php?id=336"
-```
+- [x] Persistent login session state
+- [x] Intelligent direct PDF extraction
+- [x] Resumable queue architecture
+- [x] Beautiful Next.js User Interface
+- [x] Smart Organisation / Batch Course Support
+- [ ] Export to Notion / Google Drive integration
+- [ ] Desktop App binary generation (Electron / Tauri)
 
-The downloader will:
+## 🤝 Contributing
 
-1. scan the course page
-2. detect items labelled **(PDF)**
-3. extract the real PDF source
-4. download the files
-5. organise them by week
+We welcome contributions! The separation of concerns makes this codebase highly approachable. 
+* To tweak the frontend, stick to `/app` and `/components`. 
+* To fix an LMS scraping bug when Canvas updates their DOM, stick to `/core/downloader.js`.
 
-If a file already exists, it is skipped automatically.
+Please read our `docs/architecture.md` before submitting major Pull Requests.
 
----
+## 📜 License
 
-## Configuration
+[MIT License](LICENSE)
 
-All selectors, delays, and settings are managed in:
+## 👤 Author
 
-```text
-src/config.js
-```
+Built by **David Peluola**
 
-If the LMS layout changes, update the selectors there.
-
----
-
-## Project Structure
-
-```text
-lms-pdf-downloader
-│
-├── assets
-│   ├── banner.jpg
-│   └── demo.gif
-│
-├── src
-│   ├── downloader.js
-│   ├── session-manager.js
-│   └── config.js
-│
-├── sessions
-│   └── storageState.json
-│
-├── downloads
-│
-├── package.json
-├── package-lock.json
-└── README.md
-```
-
----
-
-## Notes
-
-* This tool does **not** store your password
-* Login is done manually through the browser
-* Authentication cookies are stored **locally on your machine only**
-* `sessions/`, `downloads/`, and `node_modules/` should remain in `.gitignore`
-
----
-
-## Roadmap
-
-* [x] Persistent login session
-* [x] Direct PDF extraction
-* [x] Intermediate resource-page handling
-* [x] Resumable downloads
-* [x] Frontend UI for non-technical users (Next.js + Tailwind CSS)
-* [x] Batch course downloads
-* [ ] Desktop app version
-
----
-
-## License
-
-MIT License
-
----
-
-## Author
-
-**David Peluola**

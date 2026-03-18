@@ -39,7 +39,7 @@ export default function WelcomePage() {
                 <div className="text-center mb-10 animate-fade-in-up">
                     <h2 className="text-4xl sm:text-5xl font-black text-heading tracking-[-0.03em] leading-[1.1] mb-4">
                         Download every course PDF<br className="hidden sm:block" />
-                        <span className="text-heading"> — automatically.</span>
+                        <span className="text-heading">automatically.</span>
                     </h2>
                     <p className="text-muted text-base sm:text-lg leading-relaxed max-w-xl mx-auto font-medium">
                         Connect your LMS, paste a course link, and let it handle the rest.
@@ -53,7 +53,7 @@ export default function WelcomePage() {
                         {/* Left Side — Decorative Hero */}
                         <div className="bg-gradient-to-br from-mint/30 via-surface to-lilac/20 p-8 md:p-10 flex flex-col justify-between border-b-[3px] md:border-b-0 md:border-r-[3px] border-border">
                             <div>
-                                <div 
+                                <div
                                     className="w-16 h-16 bg-mint rounded-2xl flex items-center justify-center mb-6 border-[3px] border-border shadow-[4px_4px_0px_#111111] transition-transform duration-200 hover:-rotate-6 cursor-pointer"
                                     onClick={handleStartLogin}
                                 >
@@ -162,14 +162,14 @@ export default function WelcomePage() {
                                 </div>
                                 <span className="text-[10px] font-black text-muted uppercase tracking-[0.2em] bg-border/5 px-3 py-1 rounded-full border border-border/10">Smart Organisation</span>
                             </div>
-                            
+
                             {/* File Tree */}
                             <div className="p-6 flex-1 font-mono text-sm bg-[#fafafa]">
                                 <div className="flex items-center gap-3 text-heading font-bold mb-4 animate-fade-in-up stagger-1">
                                     <FolderArchive size={20} className="text-mint fill-mint/20" />
                                     <span className="text-base tracking-tight">IFT_211_Digital_Logic</span>
                                 </div>
-                                
+
                                 {/* Week 1 Folder */}
                                 <div className="ml-7 border-l-[2px] border-border/15 pl-6 py-2 animate-fade-in-up stagger-2 relative">
                                     <div className="absolute w-4 border-b-[2px] border-border/15 left-0 top-5"></div>

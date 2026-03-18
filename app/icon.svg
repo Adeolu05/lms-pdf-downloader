@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <!-- Drop Shadow (Lilac) -->
+    <rect x="48" y="48" width="432" height="432" rx="112" fill="#C6B8FF" stroke="#1A1A1A" stroke-width="32" />
+    
+    <!-- Top Container (Mint) -->
+    <rect x="32" y="32" width="432" height="432" rx="112" fill="#8FE388" stroke="#1A1A1A" stroke-width="32" />
+    
+    <!-- Folder Icon Body -->
+    <path d="M 140 168 L 220 168 L 260 208 L 372 208 C 394 208 412 226 412 248 L 412 344 C 412 366 394 384 372 384 L 140 384 C 118 384 100 366 100 344 L 100 208 C 100 186 118 168 140 168 Z" fill="#F6F6F3" stroke="#1A1A1A" stroke-width="32" stroke-linejoin="round" />
+    
+    <!-- Download Arrow -->
+    <path d="M 256 236 L 256 324 M 216 284 L 256 324 L 296 284" fill="none" stroke="#1A1A1A" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
