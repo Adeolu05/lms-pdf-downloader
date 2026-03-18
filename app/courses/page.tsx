@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Plus, Download, Shield, FolderArchive, ArrowLeft, BookOpen } from 'lucide-react';
-import { Button, Card, Badge } from '@/components/ui';
+import { Button, Card, Badge, Input, cn } from '@/components/ui';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { AppShell } from '@/components/layout/AppShell';
 import { CourseCard } from '@/components/features/course/CourseCard';
@@ -42,27 +42,27 @@ export default function CoursesPage() {
                 />
 
                 {/* Course URL Input Section */}
-                <Card className="bg-surface p-8 shadow-[4px_4px_0px_#111111]">
-                    <label className="flex flex-col gap-3">
+                <Card className="bg-surface p-7 shadow-hard">
+                    <div className="flex flex-col gap-4">
                         <div className="flex items-center justify-between">
-                            <span className="text-heading text-sm font-black uppercase tracking-widest">LMS Course URL</span>
+                            <span className="text-heading text-xs font-black uppercase tracking-widest">LMS Course URL</span>
                             <span className="text-xs text-muted font-medium hidden sm:block">Press ⏎ to add</span>
                         </div>
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <input
-                                className="flex-1 rounded-btn border-[3px] border-border bg-surface-alt px-5 py-4 text-heading placeholder:text-muted/50 focus:outline-none focus:ring-4 focus:ring-mint/40 focus:border-mint transition-all duration-200 font-sans font-medium text-base shadow-[inset_2px_2px_0px_rgba(0,0,0,0.05)]"
+                        <div className="flex flex-col sm:flex-row gap-3">
+                            <Input
+                                className="flex-1"
                                 placeholder="https://canvas.instructure.com/courses/12345"
-                                type="text"
+                                type="url"
                                 value={newUrl}
                                 onChange={(e) => setNewUrl(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleAddCourse()}
                             />
-                            <Button onClick={handleAddCourse} className="py-4 px-8 text-base">
-                                <Plus size={22} className="mr-1" />
+                            <Button onClick={handleAddCourse} className="py-3 px-7 text-sm whitespace-nowrap">
+                                <Plus size={18} className="mr-1" />
                                 <span>Add Course</span>
                             </Button>
                         </div>
-                    </label>
+                    </div>
                 </Card>
 
                 {/* Courses Display List */}
@@ -95,41 +95,41 @@ export default function CoursesPage() {
                 </div>
 
                 {/* Course Action Buttons */}
-                <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6 border-t-[3px] border-border/10 pt-10 pb-12">
+                <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t-[2px] border-border/10 pt-8 pb-10">
                     <button
-                        className="w-full sm:w-auto text-sm font-black uppercase tracking-widest text-muted hover:text-error transition-all duration-200 px-6 py-4 hover:bg-error/10 rounded-btn flex items-center justify-center gap-2"
+                        className="w-full sm:w-auto text-sm font-bold text-muted hover:text-heading transition-all duration-200 px-5 py-3 hover:bg-error/10 rounded-btn flex items-center justify-center gap-2"
                         onClick={() => setCourses([])}
                     >
                         Clear All Courses
                     </button>
                     <Button
-                        className="w-full sm:w-auto px-12 py-5 text-lg shadow-[4px_4px_0px_#111111]"
+                        className="w-full sm:w-auto px-10 py-4 text-base"
                         onClick={handleStartDownloads}
                         disabled={courses.length === 0}
                     >
-                        <Download size={24} className="mr-2" />
+                        <Download size={20} className="mr-2" />
                         <span>Download Materials</span>
                     </Button>
                 </div>
 
                 {/* Information Highlights */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                    <div className="p-6 rounded-card bg-mint/20 border-[3px] border-border flex gap-5 shadow-[4px_4px_0px_#111111] transition-all duration-200 hover:-translate-y-1 animate-fade-in-up stagger-2">
-                        <div className="p-3 bg-mint rounded-xl border-[3px] border-border flex-shrink-0 h-fit shadow-[2px_2px_0px_#111111]">
-                            <Shield className="text-heading" size={24} />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
+                    <div className="p-6 rounded-[20px] bg-mint/20 border-[2px] border-border flex gap-4 shadow-hard hover:-translate-y-1 hover:shadow-hard-lg transition-all duration-200 animate-fade-in-up stagger-2">
+                        <div className="p-3 bg-mint rounded-[14px] border-[2px] border-border flex-shrink-0 h-fit shadow-hard-sm">
+                            <Shield className="text-heading" size={22} />
                         </div>
                         <div>
-                            <p className="text-base font-black text-heading tracking-tight mb-1">Secure Scan</p>
-                            <p className="text-sm text-muted/80 leading-relaxed font-medium">Your credentials are never stored. We only access public and authorized files.</p>
+                            <p className="text-sm font-bold text-heading tracking-tight mb-1">Secure Scan</p>
+                            <p className="text-sm text-muted leading-relaxed">Your credentials are never stored. We only access public and authorized files.</p>
                         </div>
                     </div>
-                    <div className="p-6 rounded-card bg-lilac/20 border-[3px] border-border flex gap-5 shadow-[4px_4px_0px_#111111] transition-all duration-200 hover:-translate-y-1 animate-fade-in-up stagger-3">
-                        <div className="p-3 bg-lilac rounded-xl border-[3px] border-border flex-shrink-0 h-fit shadow-[2px_2px_0px_#111111]">
-                            <FolderArchive className="text-heading" size={24} />
+                    <div className="p-6 rounded-[20px] bg-lilac/20 border-[2px] border-border flex gap-4 shadow-hard hover:-translate-y-1 hover:shadow-hard-lg transition-all duration-200 animate-fade-in-up stagger-3">
+                        <div className="p-3 bg-lilac rounded-[14px] border-[2px] border-border flex-shrink-0 h-fit shadow-hard-sm">
+                            <FolderArchive className="text-heading" size={22} />
                         </div>
                         <div>
-                            <p className="text-base font-black text-heading tracking-tight mb-1">Bulk Export</p>
-                            <p className="text-sm text-muted/80 leading-relaxed font-medium">All PDFs will be organized into folders by course and course module.</p>
+                            <p className="text-sm font-bold text-heading tracking-tight mb-1">Bulk Export</p>
+                            <p className="text-sm text-muted leading-relaxed">All PDFs will be organized into folders by course and course module.</p>
                         </div>
                     </div>
                 </div>

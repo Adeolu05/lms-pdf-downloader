@@ -4,7 +4,7 @@
   "description": "Automatically download PDF course materials from Miva LMS.",
   "main": "src/downloader.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "npx -y rimraf .next && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

@@ -35,13 +35,17 @@ export default function WelcomePage() {
     return (
         <AppShell maxWidth="lg" className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)]">
             <div className="w-full flex flex-col items-center max-w-[880px] mx-auto">
-                {/* Welcome Section Header */}
-                <SectionHeader
-                    title="Download every course PDF — automatically"
-                    description="Connect your LMS, paste a course link, and watch every PDF download itself. Organised by week, ready in minutes."
-                    align="center"
-                    className="mb-10"
-                />
+                {/* Hero Headline */}
+                <div className="text-center mb-10 animate-fade-in-up">
+                    <h2 className="text-4xl sm:text-5xl font-black text-heading tracking-[-0.03em] leading-[1.1] mb-4">
+                        Download every course PDF<br className="hidden sm:block" />
+                        <span className="text-heading"> — automatically.</span>
+                    </h2>
+                    <p className="text-muted text-base sm:text-lg leading-relaxed max-w-xl mx-auto font-medium">
+                        Connect your LMS, paste a course link, and let it handle the rest.
+                        <strong className="text-heading font-bold"> Organised by week. Ready in minutes. No manual clicking.</strong>
+                    </p>
+                </div>
 
                 {/* Main Connection Card — Wide Two-Column Layout */}
                 <Card className="w-full p-0 shadow-[6px_6px_0px_#111111] overflow-hidden">
@@ -59,7 +63,7 @@ export default function WelcomePage() {
                                     Connect your<br />LMS session
                                 </h2>
                                 <p className="text-muted text-sm md:text-base leading-relaxed max-w-sm">
-                                    Log in once through your browser and save a secure local session. The app uses session cookies to access your course files — no passwords are ever stored.
+                                    No manual clicking. Log in securely once, and let the tool automatically locate and download every single PDF into perfectly structured folders.
                                 </p>
                             </div>
 
@@ -146,30 +150,55 @@ export default function WelcomePage() {
 
                 {/* Animated Mini Preview + Feature Highlights Row */}
                 <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-4 mt-6">
-                    {/* Preview — takes 3 columns */}
+                    {/* Smart Organisation Preview — takes 3 columns */}
                     <div className="md:col-span-3 animate-fade-in-up stagger-3">
-                        <Card className="p-5 bg-surface-alt/60 shadow-[3px_3px_0px_#111111] border-[2px] h-full">
-                            <div className="flex items-center gap-2 mb-4">
-                                <div className="w-2 h-2 rounded-full bg-error" />
-                                <div className="w-2 h-2 rounded-full bg-warning" />
-                                <div className="w-2 h-2 rounded-full bg-mint" />
-                                <span className="ml-2 text-xs font-bold text-muted uppercase tracking-widest">Preview</span>
+                        <Card className="p-0 bg-surface border-[3px] border-border shadow-[4px_4px_0px_#111111] overflow-hidden h-full flex flex-col">
+                            {/* Window Header */}
+                            <div className="bg-surface-alt border-b-[3px] border-border px-5 py-3.5 flex items-center justify-between">
+                                <div className="flex items-center gap-2.5">
+                                    <div className="w-3 h-3 rounded-full bg-error border-[2px] border-border/20 shadow-sm" />
+                                    <div className="w-3 h-3 rounded-full bg-warning border-[2px] border-border/20 shadow-sm" />
+                                    <div className="w-3 h-3 rounded-full bg-mint border-[2px] border-border/20 shadow-sm" />
+                                </div>
+                                <span className="text-[10px] font-black text-muted uppercase tracking-[0.2em] bg-border/5 px-3 py-1 rounded-full border border-border/10">Smart Organisation</span>
                             </div>
-                            <div className="space-y-2">
-                                {[
-                                    { name: 'Week 1 — Introduction.pdf', status: '✅', delay: 'stagger-1' },
-                                    { name: 'Week 2 — Boolean Algebra.pdf', status: '✅', delay: 'stagger-2' },
-                                    { name: 'Week 3 — Logic Gates.pdf', status: '⏳', delay: 'stagger-3' },
-                                ].map((file) => (
-                                    <div
-                                        key={file.name}
-                                        className={`flex items-center gap-3 p-3 rounded-btn bg-surface border border-border/20 animate-fade-in-up ${file.delay}`}
-                                    >
-                                        <FileText size={16} className="text-muted flex-shrink-0" />
-                                        <span className="text-sm font-medium text-heading truncate">{file.name}</span>
-                                        <span className="ml-auto text-sm">{file.status}</span>
+                            
+                            {/* File Tree */}
+                            <div className="p-6 flex-1 font-mono text-sm bg-[#fafafa]">
+                                <div className="flex items-center gap-3 text-heading font-bold mb-4 animate-fade-in-up stagger-1">
+                                    <FolderArchive size={20} className="text-mint fill-mint/20" />
+                                    <span className="text-base tracking-tight">IFT_211_Digital_Logic</span>
+                                </div>
+                                
+                                {/* Week 1 Folder */}
+                                <div className="ml-7 border-l-[2px] border-border/15 pl-6 py-2 animate-fade-in-up stagger-2 relative">
+                                    <div className="absolute w-4 border-b-[2px] border-border/15 left-0 top-5"></div>
+                                    <div className="flex items-center gap-3 text-heading font-semibold mb-3">
+                                        <FolderArchive size={18} className="text-lilac fill-lilac/20" />
+                                        <span>Week 1</span>
                                     </div>
-                                ))}
+                                    <div className="ml-7 flex items-center gap-3 text-muted/80 mb-1 hover:text-heading transition-colors cursor-default">
+                                        <FileText size={16} />
+                                        <span>Introduction_to_Logic.pdf</span>
+                                    </div>
+                                </div>
+
+                                {/* Week 2 Folder */}
+                                <div className="ml-7 border-l-[2px] border-border/15 pl-6 py-2 animate-fade-in-up stagger-3 relative">
+                                    <div className="absolute w-4 border-b-[2px] border-border/15 left-0 top-5"></div>
+                                    <div className="flex items-center gap-3 text-heading font-semibold mb-3">
+                                        <FolderArchive size={18} className="text-lilac fill-lilac/20" />
+                                        <span>Week 2</span>
+                                    </div>
+                                    <div className="ml-7 flex items-center gap-3 text-muted/80 mb-2 hover:text-heading transition-colors cursor-default">
+                                        <FileText size={16} />
+                                        <span>Boolean_Algebra_Rules.pdf</span>
+                                    </div>
+                                    <div className="ml-7 flex items-center gap-3 text-muted/80 mb-1 hover:text-heading transition-colors cursor-default">
+                                        <FileText size={16} />
+                                        <span className="bg-mint/20 px-1.5 rounded text-heading font-medium">Logic_Gates_Cheatsheet.pdf</span>
+                                    </div>
+                                </div>
                             </div>
                         </Card>
                     </div>

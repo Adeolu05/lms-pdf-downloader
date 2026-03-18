@@ -1,13 +1,23 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/lib/context";
 
-const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({
+    subsets: ["latin"],
+    variable: "--font-sans",
+    display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+    subsets: ["latin"],
+    variable: "--font-mono",
+    display: "swap",
+});
 
 export const metadata: Metadata = {
-    title: "LMS Downloader v1.1 - Refined",
-    description: "Automate downloading and organising course PDFs from LMS platforms",
+    title: "LMS PDF Downloader — Auto-download & organise your course PDFs",
+    description: "Connect your LMS, scan course pages, and automatically download every PDF — organised by week, ready in minutes.",
 };
 
 export default function RootLayout({
@@ -17,7 +27,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" dir="ltr">
-            <body className={`${plusJakartaSans.variable} font-sans bg-background text-body antialiased`}>
+            <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-body antialiased`}>
                 <AppProvider>
                     {children}
                 </AppProvider>

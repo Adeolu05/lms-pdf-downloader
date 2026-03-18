@@ -1,86 +1,71 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
-import { cn } from '@/components/ui';
+import { useEffect, useRef } from 'react';
 
 interface LogEntry {
-    time: string;
+    type: 'info' | 'success' | 'warning' | 'error' | 'scanning';
     message: string;
-    type?: 'info' | 'success' | 'warning' | 'error' | 'pulse';
+    timestamp?: string;
 }
 
-interface LogPanelProps {
-    logs: LogEntry[];
-    className?: string;
-}
-
-const typeColors = {
-    info: 'text-sky',
-    success: 'text-[#7BE27B]',
-    warning: 'text-[#FFD970]',
-    error: 'text-[#FF8A8A]',
-    pulse: 'text-white',
+const LOG_STYLES: Record<string, { color: string; icon: string }> = {
+    success:  { color: 'text-mint',          icon: '✓' },
+    warning:  { color: 'text-yellow',         icon: '⚠' },
+    error:    { color: 'text-[#F2C6C6]',      icon: '✕' },
+    scanning: { color: 'text-sky',            icon: '◉' },
+    info:     { color: 'text-muted',          icon: '·' },
 };
 
-const typeIcons = {
-    info: '●',
-    success: '✓',
-    warning: '⚠',
-    error: '✕',
-    pulse: '◉',
-};
+export const LogPanel = ({ logs }: { logs: LogEntry[] }) => {
+    const bottomRef = useRef<HTMLDivElement>(null);
 
-export const LogPanel = ({ logs, className }: LogPanelProps) => {
-    const scrollRef = useRef<HTMLDivElement>(null);
-
-    // Auto-scroll to bottom when new logs arrive
     useEffect(() => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-        }
-    }, [logs.length]);
+        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [logs]);
 
     return (
-        <div className={cn("rounded-btn overflow-hidden border-[3px] border-border shadow-[2px_2px_0px_#111111]", className)}>
-            {/* Terminal header bar */}
-            <div className="flex items-center gap-2 px-4 py-2.5 bg-[#1a1a2e] border-b border-white/10">
-                <div className="w-3 h-3 rounded-full bg-error/80" />
-                <div className="w-3 h-3 rounded-full bg-warning/80" />
-                <div className="w-3 h-3 rounded-full bg-mint/80" />
-                <span className="ml-2 text-[11px] font-bold text-white/40 uppercase tracking-widest">Live Log</span>
+        <div className="rounded-[16px] border-[2px] border-border overflow-hidden shadow-hard">
+            {/* Terminal Header */}
+            <div className="bg-[#0F0F0F] px-4 py-3 flex items-center justify-between border-b border-[#2A2A2A]">
+                <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#FF5F57] border border-[#E0443E] cursor-pointer hover:brightness-110 transition-all" />
+                    <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123] cursor-pointer hover:brightness-110 transition-all" />
+                    <div className="w-3 h-3 rounded-full bg-[#28C840] border border-[#1DAF35] cursor-pointer hover:brightness-110 transition-all" />
+                </div>
+                <span className="font-mono text-[11px] text-[#555] uppercase tracking-widest font-bold select-none">Live Output</span>
+                <div className="w-16" />
             </div>
-            {/* Terminal body */}
-            <div
-                ref={scrollRef}
-                className="bg-[#12122a] p-4 font-mono text-sm h-52 overflow-y-auto"
-            >
-                <div className="flex flex-col gap-1.5">
-                    {logs.length === 0 ? (
-                        <span className="text-white/30 italic font-medium animate-gentle-pulse">Waiting for logs...</span>
-                    ) : (
-                        logs.map((log, idx) => (
-                            <div key={idx} className="flex gap-3 animate-slide-in-right" style={{ animationDelay: `${Math.min(idx * 30, 200)}ms` }}>
-                                <span className="text-white/25 flex-shrink-0 font-semibold text-xs mt-0.5">{`${log.time}`}</span>
-                                <span className={cn(
-                                    'text-xs font-semibold',
-                                    typeColors[log.type || 'info']
-                                )}>
-                                    {typeIcons[log.type || 'info']}
+
+            {/* Log Body */}
+            <div className="bg-[#0F1117] font-mono text-sm overflow-y-auto max-h-[280px] min-h-[120px] px-5 py-4 space-y-1.5">
+                {logs.length === 0 ? (
+                    <p className="text-[#333] text-xs italic">Waiting for scan to start...</p>
+                ) : (
+                    logs.map((log, i) => {
+                        const style = LOG_STYLES[log.type] ?? LOG_STYLES.info;
+                        const isLast = i === logs.length - 1;
+                        return (
+                            <div
+                                key={i}
+                                className="flex items-start gap-3 animate-slide-in-right opacity-0"
+                                style={{ animationDelay: `${Math.min(i * 30, 400)}ms`, animationFillMode: 'forwards' }}
+                            >
+                                <span className={`${style.color} flex-shrink-0 w-4 text-center font-bold mt-0.5`}>
+                                    {style.icon}
                                 </span>
-                                <span className={cn(
-                                    "font-medium text-xs",
-                                    log.type === 'pulse' ? "text-white animate-gentle-pulse" :
-                                        log.type === 'success' ? "text-[#7BE27B]" :
-                                            log.type === 'warning' ? "text-[#FFD970]" :
-                                                log.type === 'error' ? "text-[#FF8A8A]" :
-                                                    "text-white/70",
-                                )}>
+                                {log.timestamp && (
+                                    <span className="text-[#3A3A3A] text-[10px] flex-shrink-0 mt-0.5 tabular-nums">
+                                        {log.timestamp}
+                                    </span>
+                                )}
+                                <span className={`${style.color} leading-relaxed text-[13px] ${isLast ? 'cursor-blink' : ''}`}>
                                     {log.message}
                                 </span>
                             </div>
-                        ))
-                    )}
-                </div>
+                        );
+                    })
+                )}
+                <div ref={bottomRef} />
             </div>
         </div>
     );
