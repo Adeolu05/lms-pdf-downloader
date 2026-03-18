@@ -4,10 +4,30 @@
   "description": "Automatically download PDF course materials from Miva LMS.",
   "main": "src/downloader.js",
   "scripts": {
-    "start": "node src/downloader.js",
-    "login": "node src/session-manager.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "core:start": "node core/downloader.js",
+    "core:login": "node core/session-manager.js"
   },
   "dependencies": {
-    "playwright": "^1.58.2"
+    "@fontsource/outfit": "^5.2.8",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.344.0",
+    "next": "14.1.0",
+    "playwright": "^1.42.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "tailwind-merge": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }

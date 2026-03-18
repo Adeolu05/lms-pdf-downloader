@@ -17,7 +17,7 @@ Automate downloading and organising course PDFs from LMS platforms
 
 Automates downloading PDF course materials from Learning Management Systems (LMS) by scanning course pages and organizing files by week.
 
-This tool uses Playwright automation to log into an LMS session, detect course materials labelled **(PDF)**, and download them automatically into structured folders.
+This tool now features a **premium, interactive web interface** built with Next.js and Tailwind CSS, providing a delightful and secure experience for students to extract course materials. It uses Playwright automation under the hood to log into an LMS session, detect course materials labelled **(PDF)**, and download them automatically into structured folders.
 
 Perfect for students who want to quickly collect and organise all lecture materials from their LMS without downloading files one by one.
 
@@ -31,8 +31,14 @@ Perfect for students who want to quickly collect and organise all lecture materi
 
 ## Features
 
-- **Resumable downloads**  
-  Automatically skips files that already exist, so you can safely rerun the downloader anytime.
+- **Modern Premium Web UI ✨ (New!)**  
+  A stunning, responsive dashboard with micro-interactions, dark-themed live terminal logs, auto-generated avatars, and an interactive download progress tracker.
+
+- **Privacy First 🛡️**  
+  Your credentials are never stored. The app relies strictly on your local browser session and cookies to securely access authorized files on your behalf. Read more on our dedicated `Privacy Policy` page.
+
+- **Resumable & Batch downloads**  
+  Queue multiple courses at once. Automatically skips files that already exist, so you can safely rerun the downloader anytime.
 
 - **Direct PDF extraction**  
   Bypasses LMS PDF viewers by extracting the real PDF source from iframes or resource links.
@@ -86,6 +92,23 @@ npx playwright install chromium
 ---
 
 ## How It Works
+
+The downloader can now be used via the **Web Interface** or the **CLI**.
+
+### Web Interface (Recommended)
+
+1. **Start the App:**
+   ```bash
+   npm run dev
+   ```
+2. **Open your browser:** Navigate to `http://localhost:3000`
+3. **Connect Session:** Click "Login to LMS" to securely authenticate and save your session.
+4. **Queue Courses:** Paste your LMS course links into the dashboard.
+5. **Download:** Watch the terminal logs and striped progress bars as your files are downloaded and organised.
+
+---
+
+### CLI Version (Legacy)
 
 The downloader works in **two simple steps**.
 
@@ -193,8 +216,8 @@ lms-pdf-downloader
 * [x] Direct PDF extraction
 * [x] Intermediate resource-page handling
 * [x] Resumable downloads
-* [ ] Frontend UI for non-technical users
-* [ ] Batch course downloads
+* [x] Frontend UI for non-technical users (Next.js + Tailwind CSS)
+* [x] Batch course downloads
 * [ ] Desktop app version
 
 ---
