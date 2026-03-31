@@ -38,7 +38,7 @@ interface AppContextType {
     removeCourse: (id: string) => void;
     startDownloads: () => Promise<void>;
     refreshSession: () => Promise<void>;
-    initiateLogin: () => Promise<void>;
+    initiateLogin: () => Promise<{ success: boolean; error?: string } | undefined>;
     verifyLogin: () => Promise<{ success: boolean; error?: string }>;
 }
 
@@ -121,10 +121,20 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setSessionStatus('loading');
         try {
             const resp = await fetch('/api/auth/login', { method: 'POST' });
-            if (!resp.ok) throw new Error('Failed to start login');
-        } catch (e) {
+            if (!resp.ok) {
+                const data = await resp.json().catch(() => ({}));
+                setSessionStatus('none');
+                const message =
+                    typeof data.error === 'string'
+                        ? data.error
+                        : `Login failed (${resp.status})`;
+                return { success: false, error: message };
+            }
+            return { success: true };
+        } catch (e: any) {
             setSessionStatus('none');
             console.error(e);
+            return { success: false, error: e.message };
         }
     };
 

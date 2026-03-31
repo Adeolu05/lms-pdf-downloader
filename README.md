@@ -57,52 +57,142 @@ Everything is cleaned, sanitised, and sorted the exact moment it touches your di
 
 ---
 
-## 🏃 Quick Start (Web Interface)
+## ⚠️ Deployed site (e.g. Vercel) = demo UI only
 
-> **Note:** The recommended way to run this tool is via the built-in Next.js web application.
+If you open a **hosted** copy of this app, the **login and download APIs do not run in the cloud** (no Playwright, no persistent disk for your LMS session). The live UI is useful as a **preview**; **real use is always local** on your own machine, following the steps below.
 
-### 1. Prerequisites
-Ensure you have [Node.js 18+](https://nodejs.org/) installed.
+---
 
-### 2. Install & Run
-Clone the repository and install dependencies, including the Playwright browser engine:
+## 🏃 Quick start (local — full app)
+
+You need **[Node.js 18+](https://nodejs.org/)** on your computer.
+
+### 1. Clone and install
 
 ```bash
 git clone https://github.com/Adeolu05/lms-pdf-downloader.git
 cd lms-pdf-downloader
 npm install
+```
+
+### 2. Install Playwright’s browser (required for LMS login & downloads)
+
+```bash
+npx playwright install
+```
+
+To save time and disk, Chromium alone is enough:
+
+```bash
 npx playwright install chromium
+```
+
+### 3. Run the app
+
+**Option A — browser**
+
+```bash
 npm run dev
 ```
 
-### 3. Usage
-- Open **http://localhost:3000** in your browser.
-- Click **"Login to LMS"**. A Chromium window will appear. Log in to your university portal normally. 
-- Return to the terminal and press `ENTER` to snapshot your secure, local session.
-- Paste your course URLs into the dashboard and hit **Download Materials**.
-- Watch the live terminal logs stream as your folders populate!
+Open **http://localhost:3000** in your browser.
+
+**Option B — desktop window (Electron)**
+
+Runs the same Next.js app inside an app window (no separate browser tab).
+
+```bash
+npm run electron:dev
+```
+
+For a **production build** inside the desktop shell (starts the **standalone** Next server automatically):
+
+```bash
+npm run electron:start
+```
+
+`electron:start` runs `next build`, copies static files into `.next/standalone`, then opens Electron. From a **source checkout**, the server is started with **`node`** — **Node.js must be on your `PATH`**. (The **packaged installer** does not require a separate Node install; it runs the server with Electron’s runtime.)
+
+### 3b. Build a desktop installer (optional)
+
+From a clone with dependencies installed, generate platform installers under **`release/`**:
+
+```bash
+npm run dist
+```
+
+This pipeline:
+
+1. **`next build`** — produces a [standalone](https://nextjs.org/docs/app/building-your-application/deploying#self-hosting) server in `.next/standalone` (see `next.config.mjs`).
+2. **`scripts/copy-standalone-assets.cjs`** — copies `.next/static` and `public` into the standalone folder (required for assets).
+3. **`scripts/prepare-playwright-browsers.cjs`** — downloads **Chromium** into `./playwright-browsers` (large, **OS-specific**).
+4. **electron-builder** — packs the app; outputs e.g. **Windows NSIS** `.exe`, **macOS** `.dmg` / `.zip`, **Linux** AppImage.
+
+**Ship one build per OS** (build the Windows installer on Windows, macOS artifacts on macOS, etc.).
+
+**Faster check without an installer:** unpacked app only:
+
+```bash
+npm run dist:dir
+```
+
+Then run the executable inside `release/win-unpacked/` (or the folder for your platform).
+
+**Windows packaging:** `npm run dist` / `dist:dir` set **`CSC_IDENTITY_AUTO_DISCOVERY=false`** so packaging does not require code-signing tooling (you get an **unsigned** installer). If you still hit **symlink / 7-Zip** errors, enable **Developer Mode** in Windows (Settings → System → For developers) or run from an environment that can create symlinks. Proper **Authenticode** signing is a separate follow-up.
+
+**Installed app data:** the packaged app sets **`LMS_USER_DATA_DIR`** to your OS **Electron userData** folder so `sessions/` and `downloads/` stay **writable** outside `Program Files`. In dev, data stays in the project root as before. Nothing is sent to us.
+
+**Windows (installed app):** PDFs and session files live under your user profile, for example:
+
+`%APPDATA%\lms-pdf-downloader\downloads\<Course name>\<Week or General>\`
+
+Example: `C:\Users\<You>\AppData\Roaming\lms-pdf-downloader\downloads\SEN 299 - SIWES I\General\`
+
+**macOS (installed app):** typically `~/Library/Application Support/lms-pdf-downloader/`.
+
+### 3c. Ship a release (publish the Windows installer)
+
+Artifacts are **not** committed to git (`release/` is ignored). You build locally, then upload the file to GitHub.
+
+1. **Version** — set `"version"` in `package.json` to match the release (e.g. `1.1.0`).
+2. **Build** — on a Windows machine: `npm run dist`.
+3. **Artifacts** — from `release/`, keep **`LMS PDF Downloader-<version>-Setup.exe`** (and optionally the `.blockmap` if you add auto-updates later). Do **not** commit the `release/` folder.
+4. **Tag** — `git tag v1.1.0` then `git push origin v1.1.0` (use the same version as `package.json`).
+5. **GitHub Release** — [Releases](https://github.com/Adeolu05/lms-pdf-downloader/releases) → **Draft a new release** → choose the tag → title e.g. `v1.1.0` → attach **`LMS PDF Downloader-1.1.0-Setup.exe`** → publish.
+
+**Suggested release notes (copy/paste and edit):**
+
+```markdown
+## LMS PDF Downloader v1.1.0 — Windows (x64)
+
+- Desktop app: install and run locally (no separate Node.js required).
+- Login once in the embedded browser, then queue course URLs and download PDFs.
+- Downloads and session data: `%APPDATA%\lms-pdf-downloader\` (Windows).
+
+**Note:** This build is **not code-signed**. Microsoft SmartScreen may show a warning — use *More info* → *Run anyway* if you trust this release. Code signing can be added later for smoother installs.
+```
+
+Replace the repo link in step 5 if your fork or org URL differs.
+
+### 4. Use the dashboard
+
+1. Click **Login to LMS**. A Chromium window opens — sign in to your LMS as usual.
+2. Back in the web (or Electron) UI, click **Confirm Login Ready** to save your **local** session under `sessions/`.
+3. On **Courses**, paste course URLs and click **Download Materials**.
+4. PDFs are written under **`downloads/`** (project folder when developing from source, or **`%APPDATA%\lms-pdf-downloader\downloads\`** when using the installed Windows app), organised by course and week (see `core/config.ts` for LMS-specific behaviour).
 
 ---
 
-## 💻 CLI Usage (Headless Mode)
+## 💻 CLI / automation notes
 
-If you prefer operating strictly from the terminal or want to set up CRON jobs, the core engine supports direct headless execution.
-
-**Step 1:** Establish a local session (opens browser for manual login):
-```bash
-npm run core:login -- "https://lms.university.edu/course/123"
-```
-**Step 2:** Trigger the headless downloader:
-```bash
-npm run core:start -- "https://lms.university.edu/course/123"
-```
+The automation engine lives in **`core/`** and is used by the Next.js **API routes** when you run the app locally. The `npm run core:login` / `core:start` scripts load those modules but **do not yet ship a full CLI** with arguments; extend `core/session-manager.ts` / `core/downloader.ts` or call the same APIs from your own script if you need headless automation outside the UI.
 
 ---
 
 ## 🛠 Tech Stack
 
 * **Frontend:** Next.js 14 (App Router), React, Tailwind CSS, Lucide Icons.
-* **Automation Automation:** Node.js, Playwright.
+* **Automation:** Node.js, Playwright.
 * **Architecture:** Tightly decoupled `/core` (Node) and `/app` (React) allowing the UI to interact purely through Next.js API routes.
 
 ## 📁 Repository Structure
@@ -112,11 +202,17 @@ lms-pdf-downloader/
 ├── app/                # Next.js App Router (Frontend Pages & API)
 ├── components/         # Reusable React UI (features/, layout/, ui/)
 ├── core/               # Automation Engine (Playwright scripts)
+├── electron/           # Electron shell (desktop window + local Next server)
 ├── lib/                # Shared utilities, React Context, Design Tokens
+├── scripts/            # Standalone asset copy + Playwright bundle for packaging
 ├── docs/               # Project documentation & Architecture
 ├── assets/             # Media assets for marketing/README
+├── next.config.mjs     # Next config (output: standalone for desktop installers)
+├── electron-builder.yml # electron-builder packaging (see npm run dist)
 ├── downloads/          # Local output directory for PDFs (gitignored)
-└── sessions/           # Local Auth State storage (gitignored)
+├── sessions/           # Local Auth State storage (gitignored)
+├── playwright-browsers/  # Chromium cache used when building installers (gitignored)
+└── release/            # Built installers / unpacked app (gitignored)
 ```
 
 ## 🎨 Design System
@@ -131,13 +227,15 @@ We take our aesthetics seriously. This project implements a formal `docs/design-
 - [x] Beautiful Next.js User Interface
 - [x] Smart Organisation / Batch Course Support
 - [ ] Export to Notion / Google Drive integration
-- [ ] Desktop App binary generation (Electron / Tauri)
+- [x] Desktop shell (Electron: `npm run electron:dev` / `electron:start`)
+- [x] Desktop installers (`npm run dist`) with bundled Chromium for Playwright (unsigned by default)
+- [ ] Code-signed / notarized installers for distribution
 
 ## 🤝 Contributing
 
 We welcome contributions! The separation of concerns makes this codebase highly approachable. 
 * To tweak the frontend, stick to `/app` and `/components`. 
-* To fix an LMS scraping bug when Canvas updates their DOM, stick to `/core/downloader.js`.
+* To fix an LMS scraping bug when Moodle updates their DOM, stick to `/core/downloader.ts` and `core/config.ts`.
 
 Please read our `docs/architecture.md` before submitting major Pull Requests.
 

@@ -3,9 +3,11 @@
 import { useEffect, useRef } from 'react';
 
 interface LogEntry {
-    type: 'info' | 'success' | 'warning' | 'error' | 'scanning';
+    type: 'info' | 'success' | 'warning' | 'error' | 'scanning' | 'pulse';
     message: string;
+    /** @deprecated prefer `time` (matches AppContext logs) */
     timestamp?: string;
+    time?: string;
 }
 
 const LOG_STYLES: Record<string, { color: string; icon: string }> = {
@@ -13,6 +15,7 @@ const LOG_STYLES: Record<string, { color: string; icon: string }> = {
     warning:  { color: 'text-yellow',         icon: '⚠' },
     error:    { color: 'text-[#F2C6C6]',      icon: '✕' },
     scanning: { color: 'text-sky',            icon: '◉' },
+    pulse:    { color: 'text-sky',            icon: '◆' },
     info:     { color: 'text-muted',          icon: '·' },
 };
 
@@ -44,6 +47,7 @@ export const LogPanel = ({ logs }: { logs: LogEntry[] }) => {
                     logs.map((log, i) => {
                         const style = LOG_STYLES[log.type] ?? LOG_STYLES.info;
                         const isLast = i === logs.length - 1;
+                        const clock = log.time ?? log.timestamp;
                         return (
                             <div
                                 key={i}
@@ -53,9 +57,9 @@ export const LogPanel = ({ logs }: { logs: LogEntry[] }) => {
                                 <span className={`${style.color} flex-shrink-0 w-4 text-center font-bold mt-0.5`}>
                                     {style.icon}
                                 </span>
-                                {log.timestamp && (
+                                {clock && (
                                     <span className="text-[#3A3A3A] text-[10px] flex-shrink-0 mt-0.5 tabular-nums">
-                                        {log.timestamp}
+                                        {clock}
                                     </span>
                                 )}
                                 <span className={`${style.color} leading-relaxed text-[13px] ${isLast ? 'cursor-blink' : ''}`}>

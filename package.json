@@ -1,15 +1,28 @@
 {
   "name": "lms-pdf-downloader",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Automatically download PDF course materials from Miva LMS.",
-  "main": "core/downloader.js",
+  "author": "David Peluola",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adeolu05/lms-pdf-downloader.git"
+  },
+  "homepage": "https://github.com/Adeolu05/lms-pdf-downloader#readme",
+  "bugs": {
+    "url": "https://github.com/Adeolu05/lms-pdf-downloader/issues"
+  },
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "npx -y rimraf .next && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "core:start": "tsx core/downloader.ts",
-    "core:login": "tsx core/session-manager.ts"
+    "core:login": "tsx core/session-manager.ts",
+    "electron:dev": "cross-env ELECTRON_DEV=1 concurrently -k \"npm run dev\" \"wait-on -t 120000 http://127.0.0.1:3000 && cross-env ELECTRON_DEV=1 electron .\"",
+    "electron:start": "npm run build && node scripts/copy-standalone-assets.cjs && electron .",
+    "dist": "npm run build && node scripts/copy-standalone-assets.cjs && node scripts/prepare-playwright-browsers.cjs && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder",
+    "dist:dir": "npm run build && node scripts/copy-standalone-assets.cjs && node scripts/prepare-playwright-browsers.cjs && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --dir"
   },
   "dependencies": {
     "@fontsource/outfit": "^5.2.8",
@@ -26,9 +39,14 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^33.4.1",
+    "electron-builder": "^25.1.8",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wait-on": "^8.0.1"
   }
 }

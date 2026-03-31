@@ -22,7 +22,7 @@ export const Header = ({ action }: { action?: React.ReactNode }) => (
             {/* Right side: actions + version */}
             <div className="flex items-center gap-3">
                 {action}
-                <Badge variant="primary" className="shadow-hard-sm text-[10px] px-2.5 py-1">v1.1</Badge>
+                <Badge variant="primary" className="shadow-hard-sm text-[10px] px-2.5 py-1">v1.1.0</Badge>
             </div>
         </div>
         {/* Gradient accent bar */}
