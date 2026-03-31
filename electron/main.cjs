@@ -48,6 +48,15 @@ function projectRoot() {
     return path.join(__dirname, '..');
 }
 
+/** Same artwork as `app/icon.svg`, rasterized for Electron (taskbar / window). */
+function windowIconPath() {
+    const candidates = [path.join(projectRoot(), 'build', 'icon.png'), path.join(__dirname, '..', 'build', 'icon.png')];
+    for (const p of candidates) {
+        if (fs.existsSync(p)) return p;
+    }
+    return undefined;
+}
+
 function startNextServer() {
     const root = projectRoot();
     const standaloneRoot = path.join(root, '.next', 'standalone');
@@ -115,6 +124,7 @@ function startNextServer() {
 }
 
 function createWindow() {
+    const icon = windowIconPath();
     const win = new BrowserWindow({
         width: 1280,
         height: 840,
@@ -122,6 +132,7 @@ function createWindow() {
         minHeight: 640,
         show: false,
         backgroundColor: '#F4F1EB',
+        ...(icon ? { icon } : {}),
         webPreferences: {
             contextIsolation: true,
             nodeIntegration: false,

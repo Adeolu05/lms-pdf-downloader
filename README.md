@@ -130,7 +130,8 @@ This pipeline:
 1. **`next build`** — produces a [standalone](https://nextjs.org/docs/app/building-your-application/deploying#self-hosting) server in `.next/standalone` (see `next.config.mjs`).
 2. **`scripts/copy-standalone-assets.cjs`** — copies `.next/static` and `public` into the standalone folder (required for assets).
 3. **`scripts/prepare-playwright-browsers.cjs`** — downloads **Chromium** into `./playwright-browsers` (large, **OS-specific**).
-4. **electron-builder** — packs the app; outputs e.g. **Windows NSIS** `.exe`, **macOS** `.dmg` / `.zip`, **Linux** AppImage.
+4. **`npm run icons:electron`** — rasterizes **`app/icon.svg`** → **`build/icon.png`** (512×512) for the **installer / taskbar / window** icon (electron-builder reads `build/icon.png` automatically).
+5. **electron-builder** — packs the app; outputs e.g. **Windows NSIS** `.exe`, **macOS** `.dmg` / `.zip`, **Linux** AppImage.
 
 **Ship one build per OS** (build the Windows installer on Windows, macOS artifacts on macOS, etc.).
 
@@ -224,6 +225,7 @@ lms-pdf-downloader/
 ├── assets/             # Media assets for marketing/README
 ├── next.config.mjs     # Next config (output: standalone for desktop installers)
 ├── electron-builder.yml # electron-builder packaging (see npm run dist)
+├── build/              # build/icon.png — generated from app/icon.svg for Electron (commit after change)
 ├── downloads/          # Local output directory for PDFs (gitignored)
 ├── sessions/           # Local Auth State storage (gitignored)
 ├── playwright-browsers/  # Chromium cache used when building installers (gitignored)

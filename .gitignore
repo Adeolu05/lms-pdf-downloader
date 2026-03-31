@@ -10,7 +10,9 @@ sessions/
 # Next.js build output
 .next/
 out/
-build/
+# Ignore build/ contents except Electron icon (generated from app/icon.svg)
+build/*
+!build/icon.png
 
 # Packaged desktop app + local Playwright cache for installers
 release/

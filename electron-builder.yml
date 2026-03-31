@@ -5,6 +5,8 @@ copyright: Copyright © LMS PDF Downloader contributors
 
 directories:
   output: release
+  # icon.png here is generated from app/icon.svg (see npm run icons:electron)
+  buildResources: build
 
 asar: false
 
@@ -12,6 +14,7 @@ files:
   - package.json
   - electron/**/*
   - .next/standalone/**/*
+  - build/icon.png
 
 extraResources:
   - from: playwright-browsers
