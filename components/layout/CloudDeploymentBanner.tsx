@@ -2,18 +2,14 @@
 
 import { CloudOff } from 'lucide-react';
 import { cn } from '@/components/ui';
-
-/** True when built on Vercel (`NEXT_PUBLIC_VERCEL_ENV` is injected at build time). */
-function isCloudDeployment() {
-    return Boolean(process.env.NEXT_PUBLIC_VERCEL_ENV);
-}
+import { isVercelHosted } from '@/lib/deployment';
 
 interface CloudDeploymentBannerProps {
     className?: string;
 }
 
 export function CloudDeploymentBanner({ className }: CloudDeploymentBannerProps) {
-    if (!isCloudDeployment()) return null;
+    if (!isVercelHosted()) return null;
 
     return (
         <div

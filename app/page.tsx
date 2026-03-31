@@ -1,15 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LogIn, Shield, Key, CheckCircle, Zap, FolderArchive, FileText, ArrowRight } from 'lucide-react';
 import { Button, Card, Badge } from '@/components/ui';
-import { SectionHeader } from '@/components/ui/SectionHeader';
 import { AppShell } from '@/components/layout/AppShell';
 import { CloudDeploymentBanner } from '@/components/layout/CloudDeploymentBanner';
+import { VercelDownloadLanding } from '@/components/layout/VercelDownloadLanding';
 import { useAppContext } from '@/lib/context';
+import { isVercelHosted } from '@/lib/deployment';
 
-export default function WelcomePage() {
+function WelcomeLocalPage() {
     const router = useRouter();
     const { sessionStatus, initiateLogin, verifyLogin } = useAppContext();
     const [error, setError] = useState<string | null>(null);
@@ -240,4 +241,22 @@ export default function WelcomePage() {
             </div>
         </AppShell>
     );
+}
+
+export default function WelcomePage() {
+    if (isVercelHosted()) {
+        return (
+            <Suspense
+                fallback={
+                    <AppShell maxWidth="lg" className="min-h-[50vh] flex items-center justify-center text-muted font-medium">
+                        Loading…
+                    </AppShell>
+                }
+            >
+                <VercelDownloadLanding />
+            </Suspense>
+        );
+    }
+
+    return <WelcomeLocalPage />;
 }

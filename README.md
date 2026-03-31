@@ -57,11 +57,13 @@ Everything is cleaned, sanitised, and sorted the exact moment it touches your di
 
 ---
 
-## ⚠️ Deployed site (e.g. Vercel) = demo UI only
+## 🌐 Deployed website (e.g. Vercel) = download & docs hub
 
-If you open a **hosted** copy of this app, the **login and download APIs do not run in the cloud** (no Playwright, no persistent disk for your LMS session). The live UI is useful as a **preview**; **real use is always local** on your own machine, following the steps below.
+The public site is meant to help students **get the Windows installer** and read **terminal / clone** instructions. **LMS login and PDF downloads do not run in the browser on Vercel** (no Playwright, no disk for sessions). Routes like `/courses` and `/progress` redirect to the home page on Vercel so people are not sent into a broken flow.
 
-**Vercel builds:** the repo uses **`vercel.json`** so `npm ci` skips downloading **Playwright** and **Electron** binaries (not needed for the static/preview deploy). **`next.config.mjs`** only sets `output: 'standalone'` when **`VERCEL`** is unset, so desktop packaging (`npm run dist`) still works locally.
+**Local / installed app:** full dashboard, login, and downloads — follow the **Quick start** section below.
+
+**Vercel builds:** **`vercel.json`** makes `npm ci` skip **Playwright** and **Electron** binary downloads. **`next.config.mjs`** only sets `output: 'standalone'` when **`VERCEL`** is unset, so **`npm run dist`** still works on your machine.
 
 ---
 
@@ -175,6 +177,17 @@ Artifacts are **not** committed to git (`release/` is ignored). You build locall
 ```
 
 Replace the repo link in step 5 if your fork or org URL differs.
+
+### 3d. Ship another release (e.g. v1.1.1 after v1.1.0)
+
+1. Merge your changes to **`main`** and pull locally.
+2. Bump **`"version"`** in `package.json` (and the header badge in `components/layout/Header.tsx` if you show it).
+3. **`npm run dist`** on the target OS (Windows → `.exe`).
+4. Commit version bump, push **`main`**.
+5. **`git tag v1.1.1`** (match the version) → **`git push origin v1.1.1`**.
+6. GitHub → **Releases** → **Draft a new release** → choose that tag → attach the new **`LMS PDF Downloader-*-Setup.exe`** → publish.
+
+Keep previous releases available; students may still be on an older installer.
 
 ### 4. Use the dashboard
 

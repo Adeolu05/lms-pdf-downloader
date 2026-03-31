@@ -1,3 +1,7 @@
+/** Public GitHub URLs (download landing, footer links). */
+export const GITHUB_REPO_URL = 'https://github.com/Adeolu05/lms-pdf-downloader';
+export const GITHUB_RELEASES_LATEST_URL = `${GITHUB_REPO_URL}/releases/latest`;
+
 export const THEME = {
     colors: {
         background: "#F4F1EB",
