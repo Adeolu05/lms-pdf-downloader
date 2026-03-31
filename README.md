@@ -61,6 +61,8 @@ Everything is cleaned, sanitised, and sorted the exact moment it touches your di
 
 If you open a **hosted** copy of this app, the **login and download APIs do not run in the cloud** (no Playwright, no persistent disk for your LMS session). The live UI is useful as a **preview**; **real use is always local** on your own machine, following the steps below.
 
+**Vercel builds:** the repo uses **`vercel.json`** so `npm ci` skips downloading **Playwright** and **Electron** binaries (not needed for the static/preview deploy). **`next.config.mjs`** only sets `output: 'standalone'` when **`VERCEL`** is unset, so desktop packaging (`npm run dist`) still works locally.
+
 ---
 
 ## 🏃 Quick start (local — full app)
