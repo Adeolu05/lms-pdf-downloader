@@ -9,6 +9,13 @@ let activePage: Page | null = null;
 
 export async function POST() {
     try {
+        if (process.env.VERCEL) {
+            return NextResponse.json({ 
+                error: 'Login is not supported in the cloud (Vercel). Please run this tool locally to open the login window.', 
+                isVercel: true 
+            }, { status: 400 });
+        }
+
         if (activeBrowser) {
             await activeBrowser.close().catch(() => { });
         }

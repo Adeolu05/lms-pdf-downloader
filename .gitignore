@@ -12,6 +12,10 @@ sessions/
 out/
 build/
 
+# Packaged desktop app + local Playwright cache for installers
+release/
+playwright-browsers/
+
 # IDE & Editor
 .vscode/
 .idea/

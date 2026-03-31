@@ -1,0 +1,42 @@
+# electron-builder config (cannot live under package.json "build" — conflicts with npm run build)
+appId: com.dpeluola.lmspdfdownloader
+productName: LMS PDF Downloader
+copyright: Copyright © LMS PDF Downloader contributors
+
+directories:
+  output: release
+
+asar: false
+
+files:
+  - package.json
+  - electron/**/*
+  - .next/standalone/**/*
+
+extraResources:
+  - from: playwright-browsers
+    to: playwright-browsers
+    filter:
+      - "**/*"
+
+win:
+  target:
+    - nsis
+  artifactName: ${productName}-${version}-Setup.${ext}
+  # Avoid winCodeSign unpack (symlinks) when no cert / no Developer Mode on Windows
+  signAndEditExecutable: false
+
+mac:
+  target:
+    - dmg
+    - zip
+  category: public.app-category.education
+
+linux:
+  target:
+    - AppImage
+  category: Utility
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true

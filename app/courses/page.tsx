@@ -6,6 +6,7 @@ import { Plus, Download, Shield, FolderArchive, ArrowLeft, BookOpen } from 'luci
 import { Button, Card, Badge, Input, cn } from '@/components/ui';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { AppShell } from '@/components/layout/AppShell';
+import { CloudDeploymentBanner } from '@/components/layout/CloudDeploymentBanner';
 import { CourseCard } from '@/components/features/course/CourseCard';
 import { useAppContext } from '@/lib/context';
 
@@ -35,6 +36,7 @@ export default function CoursesPage() {
             }
         >
             <div className="flex flex-col max-w-[800px] mx-auto gap-10">
+                <CloudDeploymentBanner className="mb-2" />
                 {/* Page Section Header */}
                 <SectionHeader
                     title="Download Course Materials"

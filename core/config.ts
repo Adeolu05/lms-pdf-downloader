@@ -1,10 +1,23 @@
 /**
  * Configuration for the Miva LMS PDF Downloader.
  */
+import path from 'path';
+
+/** Writable root for `sessions/` and `downloads/` (set by Electron when packaged). */
+function dataRoot(): string {
+    return process.env.LMS_USER_DATA_DIR
+        ? path.resolve(process.env.LMS_USER_DATA_DIR)
+        : process.cwd();
+}
+
 export const config = {
     baseUrl: 'https://lms.miva.university/',
-    sessionPath: './sessions/storageState.json',
-    downloadDir: './downloads',
+    get sessionPath(): string {
+        return path.join(dataRoot(), 'sessions', 'storageState.json');
+    },
+    get downloadDir(): string {
+        return path.join(dataRoot(), 'downloads');
+    },
     selectors: {
         course: {
             pdfLink: 'a.aalink:has(img.icon), a:has(span.instancename:has-text("(PDF)")), .activityinstance a:has(img[src*="pdf"])',

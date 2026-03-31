@@ -6,6 +6,7 @@ import { LogIn, Shield, Key, CheckCircle, Zap, FolderArchive, FileText, ArrowRig
 import { Button, Card, Badge } from '@/components/ui';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { AppShell } from '@/components/layout/AppShell';
+import { CloudDeploymentBanner } from '@/components/layout/CloudDeploymentBanner';
 import { useAppContext } from '@/lib/context';
 
 export default function WelcomePage() {
@@ -15,7 +16,10 @@ export default function WelcomePage() {
 
     const handleStartLogin = async () => {
         setError(null);
-        await initiateLogin();
+        const result = await initiateLogin();
+        if (result && !result.success) {
+            setError(result.error || 'Failed to start login');
+        }
     };
 
     const handleVerify = async () => {
@@ -35,6 +39,7 @@ export default function WelcomePage() {
     return (
         <AppShell maxWidth="lg" className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)]">
             <div className="w-full flex flex-col items-center max-w-[880px] mx-auto">
+                <CloudDeploymentBanner className="mb-8" />
                 {/* Hero Headline */}
                 <div className="text-center mb-10 animate-fade-in-up">
                     <h2 className="text-4xl sm:text-5xl font-black text-heading tracking-[-0.03em] leading-[1.1] mb-4">
