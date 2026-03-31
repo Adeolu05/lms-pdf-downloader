@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { Download, Terminal, Shield, ExternalLink, BookOpen, FolderArchive, Zap } from 'lucide-react';
 import { Card, Badge, cn } from '@/components/ui';
 import { AppShell } from '@/components/layout/AppShell';
-import { GITHUB_RELEASES_LATEST_URL, GITHUB_REPO_URL } from '@/lib/constants';
+import { GITHUB_RELEASES_LATEST_URL, GITHUB_REPO_URL, GITHUB_ISSUES_URL } from '@/lib/constants';
 
 const TERMINAL_STEPS = `git clone https://github.com/Adeolu05/lms-pdf-downloader.git
 cd lms-pdf-downloader
@@ -36,6 +36,23 @@ export function VercelDownloadLanding() {
                     This site helps you <strong className="text-heading">get the app</strong> and see how to run it. Your LMS login and PDF downloads happen{' '}
                     <strong className="text-heading">only on your own device</strong> — never on this server.
                 </p>
+                <p className="mt-5 text-sm text-muted font-medium flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+                    <a className="text-heading font-bold underline underline-offset-4 decoration-mint/60 hover:decoration-mint" href={GITHUB_RELEASES_LATEST_URL} target="_blank" rel="noopener noreferrer">
+                        Latest installer
+                    </a>
+                    <span className="text-border/40 hidden sm:inline" aria-hidden>
+                        |
+                    </span>
+                    <a className="hover:text-heading underline underline-offset-4 decoration-border/30" href={`${GITHUB_REPO_URL}/releases`} target="_blank" rel="noopener noreferrer">
+                        All releases
+                    </a>
+                    <span className="text-border/40 hidden sm:inline" aria-hidden>
+                        |
+                    </span>
+                    <a className="hover:text-heading underline underline-offset-4 decoration-border/30" href={GITHUB_ISSUES_URL} target="_blank" rel="noopener noreferrer">
+                        Report a problem
+                    </a>
+                </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
@@ -46,7 +63,7 @@ export function VercelDownloadLanding() {
                         </div>
                         <div>
                             <h2 className="text-xl font-black text-heading tracking-tight">Windows (recommended)</h2>
-                            <p className="text-sm text-muted font-medium">Installer — no Node.js required.</p>
+                            <p className="text-sm text-muted font-medium">Installer (.exe) — no Node.js required.</p>
                         </div>
                     </div>
                     <p className="text-sm text-muted leading-relaxed">
@@ -69,7 +86,7 @@ export function VercelDownloadLanding() {
                             )}
                         >
                             <Download size={20} />
-                            Latest release
+                            Get Windows installer
                             <ExternalLink size={16} className="opacity-80" />
                         </a>
                         <a
@@ -169,6 +186,14 @@ export function VercelDownloadLanding() {
                 </a>
                 <a className="hover:text-sky underline underline-offset-4 decoration-border/20 hover:decoration-sky" href="mailto:hello@dpeluola.com">
                     Support
+                </a>
+                <a
+                    className="hover:text-heading underline underline-offset-4 decoration-border/20 hover:decoration-border"
+                    href={GITHUB_ISSUES_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Issues
                 </a>
             </footer>
         </AppShell>

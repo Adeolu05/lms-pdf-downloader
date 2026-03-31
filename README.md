@@ -7,12 +7,38 @@
 
   <p>
     <a href="https://github.com/Adeolu05/lms-pdf-downloader"><img src="https://img.shields.io/badge/Status-Active-success.svg?style=flat-square" alt="Status" /></a>
+    <a href="https://github.com/Adeolu05/lms-pdf-downloader/releases/latest"><img src="https://img.shields.io/github/v/release/Adeolu05/lms-pdf-downloader?color=8FE388&label=Windows%20installer&style=flat-square&logo=github" alt="Latest Windows installer on GitHub Releases" /></a>
     <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-18%2B-green.svg?style=flat-square" alt="Node Version" /></a>
     <a href="https://playwright.dev/"><img src="https://img.shields.io/badge/Powered%20By-Playwright-2EAD33.svg?style=flat-square" alt="Playwright" /></a>
-    <a href="/docs/design-system.md"><img src="https://img.shields.io/badge/UI-Next.js%20%7C%20Tailwind-black.svg?style=flat-square" alt="Modern Stack" /></a>
+    <a href="./docs/design-system.md"><img src="https://img.shields.io/badge/UI-Next.js%20%7C%20Tailwind-black.svg?style=flat-square" alt="Modern Stack" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License" /></a>
   </p>
+
+  <p>
+    <strong>
+      <a href="https://github.com/Adeolu05/lms-pdf-downloader/releases/latest">Download the latest Windows setup (.exe) from GitHub Releases →</a>
+    </strong><br />
+    <small>Under <strong>Assets</strong>, choose <code>LMS PDF Downloader-*-Setup.exe</code>. The public website (e.g. Vercel) only hosts download instructions — run the app on your PC.</small>
+  </p>
+
+  <p align="center">
+    <a href="https://github.com/Adeolu05/lms-pdf-downloader/releases/latest">Latest release</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/Adeolu05/lms-pdf-downloader/releases">All releases</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/Adeolu05/lms-pdf-downloader/issues">Report an issue</a>
+  </p>
 </div>
+
+---
+
+## 📥 Download (Windows)
+
+1. Open **[Latest GitHub Release](https://github.com/Adeolu05/lms-pdf-downloader/releases/latest)**.
+2. Under **Assets**, download **`LMS PDF Downloader-*-Setup.exe`**, run the installer, then open the app from the Start menu.
+3. If **SmartScreen** appears, use **More info → Run anyway** (installer is not code-signed yet).
+
+**From source (macOS / Linux / dev):** see [Quick start](#quick-start-local) below.
 
 ---
 
@@ -67,7 +93,11 @@ The public site is meant to help students **get the Windows installer** and read
 
 ---
 
+<a id="quick-start-local"></a>
+
 ## 🏃 Quick start (local — full app)
+
+> **Only need Windows?** Use the **[installer from Releases](https://github.com/Adeolu05/lms-pdf-downloader/releases/latest)** instead — no Node.js or terminal required. The steps below are for running from source or using Electron in dev mode.
 
 You need **[Node.js 18+](https://nodejs.org/)** on your computer.
 
