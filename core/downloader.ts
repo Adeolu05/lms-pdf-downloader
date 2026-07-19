@@ -2,7 +2,8 @@ import { chromium, type Browser, type BrowserContext, type Page } from 'playwrig
 import { config } from './config';
 import fs from 'fs';
 import path from 'path';
-import { downloaderEvents } from '@/lib/events';
+import { downloaderEvents } from '../lib/events';
+import { beginJob, isAborted } from './job-control';
 
 /**
  * Refactored Downloader Engine (v18.0 - Modular ESM)
@@ -16,6 +17,8 @@ interface PDFItem {
 }
 
 export async function runDownloader(courseId: string, courseUrl: string) {
+    beginJob(courseId);
+
     if (!fs.existsSync(config.sessionPath)) {
         downloaderEvents.emitEvent(courseId, 'error', { message: 'Session expired. Please log in again.' });
         return;
@@ -80,6 +83,15 @@ export async function runDownloader(courseId: string, courseUrl: string) {
 
         // 4. Processing Loop
         for (let i = 0; i < pdfItems.length; i++) {
+            if (isAborted(courseId)) {
+                downloaderEvents.emitEvent(courseId, 'log', {
+                    message: 'Cancelled by user.',
+                    type: 'warning',
+                });
+                downloaderEvents.emitEvent(courseId, 'status', { status: 'failed' });
+                return;
+            }
+
             const item = pdfItems[i];
             const canonicalPath = getCanonicalFilePath(item, courseDirPath);
             const weekDirPath = path.dirname(canonicalPath);

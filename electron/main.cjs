@@ -4,7 +4,7 @@
  * - Prod: Prefer `.next/standalone/server.js` (Next output: standalone). Packaged builds
  *   run the server with ELECTRON_RUN_AS_NODE so end users do not need Node on PATH.
  */
-const { app, BrowserWindow, shell } = require('electron');
+const { app, BrowserWindow, shell, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { spawn } = require('child_process');
@@ -15,6 +15,41 @@ const BIND_HOST = process.env.HOSTNAME || process.env.HOST || '127.0.0.1';
 const OPEN_URL = `http://127.0.0.1:${PORT}`;
 
 const isDev = process.env.ELECTRON_DEV === '1';
+
+/** Optional auto-update when packaged (see docs/SHIPPING.md). */
+function setupAutoUpdater() {
+    if (isDev || !app.isPackaged) return;
+    try {
+        const { autoUpdater } = require('electron-updater');
+        autoUpdater.autoDownload = false;
+        autoUpdater.on('update-available', (info) => {
+            dialog
+                .showMessageBox({
+                    type: 'info',
+                    title: 'Update available',
+                    message: `LMS Study Pack ${info.version} is available.`,
+                    detail: 'Download and install from GitHub Releases, or enable auto-download in a future build.',
+                    buttons: ['Open releases', 'Later'],
+                    defaultId: 0,
+                    cancelId: 1,
+                })
+                .then(({ response }) => {
+                    if (response === 0) {
+                        shell.openExternal(
+                            'https://github.com/Adeolu05/lms-pdf-downloader/releases/latest'
+                        );
+                    }
+                })
+                .catch(() => {});
+        });
+        autoUpdater.on('error', (err) => {
+            console.error('[updater]', err?.message || err);
+        });
+        autoUpdater.checkForUpdates().catch((e) => console.error('[updater] check failed', e));
+    } catch (e) {
+        console.warn('[updater] electron-updater not available:', e?.message || e);
+    }
+}
 
 /** @type {import('child_process').ChildProcess | null} */
 let nextChild = null;
@@ -131,7 +166,7 @@ function createWindow() {
         minWidth: 900,
         minHeight: 640,
         show: false,
-        backgroundColor: '#F4F1EB',
+        backgroundColor: '#F6F6F3',
         ...(icon ? { icon } : {}),
         webPreferences: {
             contextIsolation: true,
@@ -159,6 +194,7 @@ app.whenReady().then(async () => {
         }
     }
     createWindow();
+    setupAutoUpdater();
 });
 
 app.on('window-all-closed', () => {

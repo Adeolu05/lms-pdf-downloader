@@ -1,4 +1,5 @@
 # electron-builder config (cannot live under package.json "build" — conflicts with npm run build)
+# See docs/SHIPPING.md for GitHub publish + Authenticode signing.
 appId: com.dpeluola.lmspdfdownloader
 productName: LMS PDF Downloader
 copyright: Copyright © LMS PDF Downloader contributors
@@ -22,11 +23,18 @@ extraResources:
     filter:
       - "**/*"
 
+# Publish metadata for electron-updater (needs GH_TOKEN on CI / release machine)
+publish:
+  provider: github
+  owner: Adeolu05
+  repo: lms-pdf-downloader
+  releaseType: release
+
 win:
   target:
     - nsis
   artifactName: ${productName}-${version}-Setup.${ext}
-  # Avoid winCodeSign unpack (symlinks) when no cert / no Developer Mode on Windows
+  # Set true when CSC_LINK / cert is available (see docs/SHIPPING.md)
   signAndEditExecutable: false
 
 mac:

@@ -23,3 +23,6 @@ playwright-browsers/
 .idea/
 *.swp
 .DS_Store
+# local exam-pack build caches
+scripts/.exam-pack-*.cjs
+scripts/probe-session.mjs

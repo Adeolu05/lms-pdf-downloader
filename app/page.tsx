@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { LogIn, Shield, Key, CheckCircle, Zap, FolderArchive, FileText, ArrowRight } from 'lucide-react';
+import { LogIn, Shield, Key, CheckCircle, Zap, FolderArchive, FileText, ArrowRight, ClipboardList } from 'lucide-react';
 import { Button, Card, Badge } from '@/components/ui';
 import { AppShell } from '@/components/layout/AppShell';
 import { CloudDeploymentBanner } from '@/components/layout/CloudDeploymentBanner';
@@ -38,29 +38,33 @@ function WelcomeLocalPage() {
     };
 
     return (
-        <AppShell maxWidth="lg" className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)]">
+        <AppShell activeStep={1} maxWidth="lg" className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)]">
             <div className="w-full flex flex-col items-center max-w-[880px] mx-auto">
                 <CloudDeploymentBanner className="mb-8" />
                 {/* Hero Headline */}
                 <div className="text-center mb-10 animate-fade-in-up">
+                    <p className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-muted mb-4 px-3 py-1.5 rounded-full border-2 border-border bg-surface shadow-hard-sm">
+                        PDFs · Exam Packs · Local & private
+                    </p>
                     <h2 className="text-4xl sm:text-5xl font-black text-heading tracking-[-0.03em] leading-[1.1] mb-4">
-                        Download every course PDF<br className="hidden sm:block" />
-                        <span className="text-heading">automatically.</span>
+                        Course materials &amp; exam prep,<br className="hidden sm:block" />
+                        <span className="text-heading"> one local study pack.</span>
                     </h2>
                     <p className="text-muted text-base sm:text-lg leading-relaxed max-w-xl mx-auto font-medium">
-                        Connect your LMS, paste a course link, and let it handle the rest.
-                        <strong className="text-heading font-bold"> Organised by week. Ready in minutes. No manual clicking.</strong>
+                        Connect your LMS once, then pull <strong className="text-heading font-bold">lecture PDFs</strong> and{' '}
+                        <strong className="text-heading font-bold">quiz question packs</strong> (with maths rendered in a student-friendly PDF).
+                        Organised by week. Nothing leaves your device.
                     </p>
                 </div>
 
                 {/* Main Connection Card — Wide Two-Column Layout */}
-                <Card className="w-full p-0 shadow-[6px_6px_0px_#111111] overflow-hidden">
+                <Card className="w-full p-0 shadow-[6px_6px_0px_#1A1A1A] overflow-hidden">
                     <div className="grid grid-cols-1 md:grid-cols-2">
                         {/* Left Side — Decorative Hero */}
                         <div className="bg-gradient-to-br from-mint/30 via-surface to-lilac/20 p-8 md:p-10 flex flex-col justify-between border-b-[3px] md:border-b-0 md:border-r-[3px] border-border">
                             <div>
                                 <div
-                                    className="w-16 h-16 bg-mint rounded-2xl flex items-center justify-center mb-6 border-[3px] border-border shadow-[4px_4px_0px_#111111] transition-transform duration-200 hover:-rotate-6 cursor-pointer"
+                                    className="w-16 h-16 bg-mint rounded-2xl flex items-center justify-center mb-6 border-[3px] border-border shadow-[4px_4px_0px_#1A1A1A] transition-transform duration-200 hover:-rotate-6 cursor-pointer"
                                     onClick={handleStartLogin}
                                 >
                                     <Key className="text-heading" size={28} />
@@ -69,13 +73,13 @@ function WelcomeLocalPage() {
                                     Connect your<br />LMS session
                                 </h2>
                                 <p className="text-muted text-sm md:text-base leading-relaxed max-w-sm">
-                                    No manual clicking. Log in securely once, and let the tool automatically locate and download every single PDF into perfectly structured folders.
+                                    Log in securely once. Then download course PDFs <em>or</em> build an Exam Pack from finished quiz reviews — both stay on your machine.
                                 </p>
                             </div>
 
                             {/* Privacy callout */}
                             <div className="flex items-center gap-3 mt-8 p-3 bg-surface/70 rounded-xl border border-border/15 backdrop-blur-sm">
-                                <div className="p-2 bg-lilac rounded-lg border-2 border-border shadow-[2px_2px_0px_#111111] flex-shrink-0">
+                                <div className="p-2 bg-lilac rounded-lg border-2 border-border shadow-[2px_2px_0px_#1A1A1A] flex-shrink-0">
                                     <Shield size={16} className="text-heading" />
                                 </div>
                                 <p className="text-xs text-muted leading-relaxed">
@@ -108,7 +112,7 @@ function WelcomeLocalPage() {
                                             <div className="w-8 h-8 border-[3px] border-heading border-t-transparent rounded-full animate-spin" />
                                         </div>
                                         <div>
-                                            <Badge variant="warning" className="px-4 py-2 text-sm shadow-[2px_2px_0px_#111111] mb-2">Login in progress...</Badge>
+                                            <Badge variant="warning" className="px-4 py-2 text-sm shadow-[2px_2px_0px_#1A1A1A] mb-2">Login in progress...</Badge>
                                             <p className="text-sm text-muted font-medium max-w-xs">Log in to your LMS in the browser window, then return here.</p>
                                         </div>
                                     </div>
@@ -119,32 +123,32 @@ function WelcomeLocalPage() {
                                             <CheckCircle size={36} className="text-heading" />
                                         </div>
                                         <div>
-                                            <Badge variant="success" className="px-4 py-2 text-sm shadow-[2px_2px_0px_#111111] mb-2">Session ready</Badge>
+                                            <Badge variant="success" className="px-4 py-2 text-sm shadow-[2px_2px_0px_#1A1A1A] mb-2">Session ready</Badge>
                                             <p className="text-sm text-muted font-medium">You&apos;re all set! Head to courses.</p>
                                         </div>
                                     </div>
                                 )}
                                 {error && (
-                                    <p className="text-sm text-red-600 font-bold mt-4 bg-red-100 px-4 py-2 rounded-lg border-2 border-red-200 animate-fade-in-up">{error}</p>
+                                    <p className="text-sm text-error-text font-bold mt-4 bg-error/40 px-4 py-2 rounded-lg border-2 border-border animate-fade-in-up">{error}</p>
                                 )}
                             </div>
 
                             {/* CTA Button */}
                             <div className="w-full max-w-xs">
                                 {sessionStatus === 'none' && (
-                                    <Button className="w-full py-5 text-base font-bold shadow-[4px_4px_0px_#111111]" onClick={handleStartLogin}>
+                                    <Button className="w-full py-5 text-base font-bold shadow-[4px_4px_0px_#1A1A1A]" onClick={handleStartLogin}>
                                         <LogIn size={20} className="mr-2" />
                                         <span>Login to LMS</span>
                                     </Button>
                                 )}
                                 {sessionStatus === 'loading' && (
-                                    <Button variant="primary" className="w-full py-5 text-base font-bold shadow-[4px_4px_0px_#111111]" onClick={handleVerify}>
+                                    <Button variant="primary" className="w-full py-5 text-base font-bold shadow-[4px_4px_0px_#1A1A1A]" onClick={handleVerify}>
                                         <CheckCircle size={20} className="mr-2" />
                                         <span>Confirm Login Ready</span>
                                     </Button>
                                 )}
                                 {sessionStatus === 'ready' && (
-                                    <Button className="w-full py-5 text-base font-bold shadow-[4px_4px_0px_#111111] bg-mint text-heading hover:bg-mint/90" onClick={handleContinue}>
+                                    <Button className="w-full py-5 text-base font-bold shadow-[4px_4px_0px_#1A1A1A] bg-mint text-heading hover:bg-mint/90" onClick={handleContinue}>
                                         <span>Continue to Courses</span>
                                         <ArrowRight size={20} className="ml-2" />
                                     </Button>
@@ -158,7 +162,7 @@ function WelcomeLocalPage() {
                 <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-4 mt-6">
                     {/* Smart Organisation Preview — takes 3 columns */}
                     <div className="md:col-span-3 animate-fade-in-up stagger-3">
-                        <Card className="p-0 bg-surface border-[3px] border-border shadow-[4px_4px_0px_#111111] overflow-hidden h-full flex flex-col">
+                        <Card className="p-0 bg-surface border-[3px] border-border shadow-[4px_4px_0px_#1A1A1A] overflow-hidden h-full flex flex-col">
                             {/* Window Header */}
                             <div className="bg-surface-alt border-b-[3px] border-border px-5 py-3.5 flex items-center justify-between">
                                 <div className="flex items-center gap-2.5">
@@ -212,8 +216,8 @@ function WelcomeLocalPage() {
                     {/* Feature Highlights — takes 2 columns, stacked vertically */}
                     <div className="md:col-span-2 flex flex-col gap-4">
                         {[
-                            { icon: Zap, label: 'Auto-download', desc: 'Every PDF, hands-free', color: 'bg-mint/20', delay: 'stagger-4' },
-                            { icon: FolderArchive, label: 'Organised', desc: 'Sorted by week automatically', color: 'bg-lilac/20', delay: 'stagger-5' },
+                            { icon: Zap, label: 'Course PDFs', desc: 'Lectures, hands-free by week', color: 'bg-mint/20', delay: 'stagger-4' },
+                            { icon: ClipboardList, label: 'Exam Pack', desc: 'Quizzes → study PDF booklet', color: 'bg-lilac/20', delay: 'stagger-5' },
                             { icon: Shield, label: 'Private', desc: 'Nothing leaves your device', color: 'bg-sky/20', delay: 'stagger-6' },
                         ].map((feat) => (
                             <div

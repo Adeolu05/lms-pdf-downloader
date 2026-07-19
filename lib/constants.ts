@@ -3,25 +3,26 @@ export const GITHUB_REPO_URL = 'https://github.com/Adeolu05/lms-pdf-downloader';
 export const GITHUB_RELEASES_LATEST_URL = `${GITHUB_REPO_URL}/releases/latest`;
 export const GITHUB_ISSUES_URL = `${GITHUB_REPO_URL}/issues`;
 
+/** @deprecated Prefer DESIGN_TOKENS / Tailwind theme — kept aligned for any legacy imports */
 export const THEME = {
     colors: {
-        background: "#F4F1EB",
+        background: "#F6F6F3",
         surface: "#FFFFFF",
-        surfaceAlt: "#F8F5EF",
-        border: "#111111",
-        primary: "#111111",
+        surfaceAlt: "#F0EDE7",
+        border: "#1A1A1A",
+        primary: "#0F0F0F",
         primaryHover: "#333333",
-        accent: "#A7F48B",
-        mint: "#A7F48B",
-        lilac: "#D8B9FF",
-        sky: "#8EC9FF",
-        yellow: "#FFE28A",
-        heading: "#111111",
-        body: "#2B2B2B",
+        accent: "#8FE388",
+        mint: "#8FE388",
+        lilac: "#C6B8FF",
+        sky: "#B8D9FF",
+        yellow: "#F4E3B2",
+        heading: "#0F0F0F",
+        body: "#0F0F0F",
         muted: "#6B6B6B",
-        success: "#7BE27B",
-        warning: "#FFC857",
-        error: "#FF7A7A",
+        success: "#8FE388",
+        warning: "#F4E3B2",
+        error: "#F2C6C6",
     },
     radius: {
         card: "20px",

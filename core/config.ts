@@ -40,7 +40,11 @@ export const config = {
     },
     pdfMatchRegex: /\(PDF\)/gi,
     weekRegex: /Week\s*(\d+)/i,
+    /** Folder name under each course for harvested quiz questions */
+    examPackFolder: 'Exam Pack',
     delay: 2000,
+    /** Polite delay between quiz page fetches during exam-pack extraction */
+    examPackDelay: 800,
     retryWait: 5000,
     elementTimeout: 30000,
 };

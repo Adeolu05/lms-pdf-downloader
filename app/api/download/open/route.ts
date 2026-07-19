@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { exec } from 'child_process';
+import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { config } from '@/core/config';
@@ -12,10 +13,20 @@ export async function POST(req: NextRequest) {
     try {
         const body = await req.json().catch(() => ({}));
         const courseName = body.courseName || '';
-        
+        const subfolder = typeof body.subfolder === 'string' ? body.subfolder : '';
+
         const downloadsDir = path.resolve(config.downloadDir);
         const safeCourseName = courseName ? makeSafeFilename(courseName) : '';
-        const targetDir = safeCourseName ? path.join(downloadsDir, safeCourseName) : downloadsDir;
+        let targetDir = safeCourseName ? path.join(downloadsDir, safeCourseName) : downloadsDir;
+
+        if (subfolder && safeCourseName) {
+            const safeSub = makeSafeFilename(subfolder);
+            const nested = path.join(targetDir, safeSub);
+            // Prefer nested folder when it exists (e.g. Exam Pack)
+            if (fs.existsSync(nested)) {
+                targetDir = nested;
+            }
+        }
 
         let command = '';
         if (os.platform() === 'win32') {

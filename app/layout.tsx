@@ -16,8 +16,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "LMS PDF Downloader — Auto-download & organise your course PDFs",
-    description: "Connect your LMS, scan course pages, and automatically download every PDF — organised by week, ready in minutes.",
+    title: "LMS Study Pack — Course PDFs & Exam Packs",
+    description:
+        "Connect your Miva LMS, download course PDFs organised by week, and build Exam Pack PDFs from finished quiz attempts — private, local, and student-friendly.",
 };
 
 export default function RootLayout({

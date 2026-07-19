@@ -11,7 +11,14 @@ export function middleware(request: NextRequest) {
     }
 
     const { pathname } = request.nextUrl;
-    if (pathname === '/courses' || pathname.startsWith('/courses/') || pathname === '/progress' || pathname.startsWith('/progress/')) {
+    if (
+        pathname === '/courses' ||
+        pathname.startsWith('/courses/') ||
+        pathname === '/progress' ||
+        pathname.startsWith('/progress/') ||
+        pathname === '/library' ||
+        pathname.startsWith('/library/')
+    ) {
         const url = request.nextUrl.clone();
         url.pathname = '/';
         url.searchParams.set('hint', 'download');
@@ -22,5 +29,12 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/courses', '/courses/:path*', '/progress', '/progress/:path*'],
+    matcher: [
+        '/courses',
+        '/courses/:path*',
+        '/progress',
+        '/progress/:path*',
+        '/library',
+        '/library/:path*',
+    ],
 };

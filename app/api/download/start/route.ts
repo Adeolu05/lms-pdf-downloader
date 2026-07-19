@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { runDownloader } from '@/core/downloader';
+import { beginBatch } from '@/core/job-control';
 
 export async function POST(req: NextRequest) {
     try {
@@ -9,11 +10,9 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Invalid courses list' }, { status: 400 });
         }
 
-        // Trigger downloads in the background (no await)
-        // We process them sequentially or in parallel? Standard downloader handles one course.
-        // Let's loop through them.
+        beginBatch();
+
         for (const course of courses) {
-            // Fire and forget, events will be streamed
             runDownloader(course.id, course.url);
         }
 

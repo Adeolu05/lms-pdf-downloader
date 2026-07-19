@@ -30,10 +30,10 @@ export function VercelDownloadLanding() {
                     Download &amp; docs — not the live LMS tool
                 </Badge>
                 <h1 className="text-4xl sm:text-5xl font-black text-heading tracking-[-0.03em] leading-[1.1] mb-4">
-                    LMS PDF Downloader
+                    LMS Study Pack
                 </h1>
                 <p className="text-muted text-base sm:text-lg leading-relaxed max-w-2xl mx-auto font-medium">
-                    This site helps you <strong className="text-heading">get the app</strong> and see how to run it. Your LMS login and PDF downloads happen{' '}
+                    This site helps you <strong className="text-heading">get the app</strong> and see how to run it. LMS login, PDF downloads, and Exam Packs run{' '}
                     <strong className="text-heading">only on your own device</strong> — never on this server.
                 </p>
                 <p className="mt-5 text-sm text-muted font-medium flex flex-wrap items-center justify-center gap-x-3 gap-y-1">

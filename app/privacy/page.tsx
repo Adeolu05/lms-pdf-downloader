@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function PrivacyPolicyPage() {
     return (
-        <AppShell maxWidth="lg" className="pb-12">
+        <AppShell maxWidth="lg" className="pb-12" showSteps={false}>
             {/* Back Link + Header Row */}
             <div className="flex items-center justify-between mb-6">
                 <Link
@@ -31,9 +31,9 @@ export default function PrivacyPolicyPage() {
             {/* Two-column grid for policy sections */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Overview */}
-                <Card className="p-6 shadow-[4px_4px_0px_#111111] transition-all hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-[2px_2px_0px_#111111] animate-fade-in-up stagger-1">
+                <Card className="p-6 shadow-[4px_4px_0px_#1A1A1A] transition-all hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-[2px_2px_0px_#1A1A1A] animate-fade-in-up stagger-1">
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-mint rounded-xl border-2 border-border shadow-[2px_2px_0px_#111111]">
+                        <div className="p-2 bg-mint rounded-xl border-2 border-border shadow-[2px_2px_0px_#1A1A1A]">
                             <Shield size={18} className="text-heading" />
                         </div>
                         <h2 className="text-lg font-black text-heading tracking-tight">Overview</h2>
@@ -45,9 +45,9 @@ export default function PrivacyPolicyPage() {
                 </Card>
 
                 {/* What We Collect */}
-                <Card className="p-6 shadow-[4px_4px_0px_#111111] transition-all hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-[2px_2px_0px_#111111]">
+                <Card className="p-6 shadow-[4px_4px_0px_#1A1A1A] transition-all hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-[2px_2px_0px_#1A1A1A]">
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-lilac rounded-xl border-2 border-border shadow-[2px_2px_0px_#111111]">
+                        <div className="p-2 bg-lilac rounded-xl border-2 border-border shadow-[2px_2px_0px_#1A1A1A]">
                             <Eye size={18} className="text-heading" />
                         </div>
                         <h2 className="text-lg font-black text-heading tracking-tight">What We Collect</h2>
@@ -71,9 +71,9 @@ export default function PrivacyPolicyPage() {
                 </Card>
 
                 {/* Local Data Storage */}
-                <Card className="p-6 shadow-[4px_4px_0px_#111111] transition-all hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-[2px_2px_0px_#111111]">
+                <Card className="p-6 shadow-[4px_4px_0px_#1A1A1A] transition-all hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-[2px_2px_0px_#1A1A1A]">
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-sky rounded-xl border-2 border-border shadow-[2px_2px_0px_#111111]">
+                        <div className="p-2 bg-sky rounded-xl border-2 border-border shadow-[2px_2px_0px_#1A1A1A]">
                             <HardDrive size={18} className="text-heading" />
                         </div>
                         <h2 className="text-lg font-black text-heading tracking-tight">Local Data Storage</h2>
@@ -97,9 +97,9 @@ export default function PrivacyPolicyPage() {
                 </Card>
 
                 {/* Cookies & Authentication */}
-                <Card className="p-6 shadow-[4px_4px_0px_#111111] transition-all hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-[2px_2px_0px_#111111]">
+                <Card className="p-6 shadow-[4px_4px_0px_#1A1A1A] transition-all hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-[2px_2px_0px_#1A1A1A]">
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-yellow rounded-xl border-2 border-border shadow-[2px_2px_0px_#111111]">
+                        <div className="p-2 bg-yellow rounded-xl border-2 border-border shadow-[2px_2px_0px_#1A1A1A]">
                             <Cookie size={18} className="text-heading" />
                         </div>
                         <h2 className="text-lg font-black text-heading tracking-tight">Cookies &amp; Auth</h2>
@@ -113,8 +113,8 @@ export default function PrivacyPolicyPage() {
             </div>
 
             {/* Contact Banner */}
-            <Card className="mt-4 p-5 shadow-[4px_4px_0px_#111111] flex items-center gap-4 transition-all hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-[2px_2px_0px_#111111]">
-                <div className="p-2 bg-mint rounded-xl border-2 border-border shadow-[2px_2px_0px_#111111] flex-shrink-0">
+            <Card className="mt-4 p-5 shadow-[4px_4px_0px_#1A1A1A] flex items-center gap-4 transition-all hover:translate-y-[1px] hover:translate-x-[1px] hover:shadow-[2px_2px_0px_#1A1A1A]">
+                <div className="p-2 bg-mint rounded-xl border-2 border-border shadow-[2px_2px_0px_#1A1A1A] flex-shrink-0">
                     <Mail size={18} className="text-heading" />
                 </div>
                 <p className="text-sm text-muted leading-relaxed">
